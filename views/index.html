@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tweeter feed app</title>
+    <link rel="stylesheet" href="/stylesheet/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="profile">
+        <h2>Tweeter feed</h2>
+        <p>Welcome to tweeter feed</p>
+        <div class="image">
+          <img src="/images/profile.jpg" alt="profile picture">
+        </div>
+        <div class="control">
+          <select>
+            <option value="buzzfeed">buzzfeed</option>
+            <option value="cnn">cnn</option>
+          </slect>
+          <input class="start_stream" type="submit" value="start stream">
+          <input class="clear_stream" type="submit" value="clear stream">
+          <input class="search_input" placeholder="Type To Filter">
+        </div>
+      </div>
+    </div>
+    <div class="streams"></div>
+
+    <script src="/javascript/socket.js"></script>
+  </body>
+</html>
