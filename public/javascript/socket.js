@@ -1,11 +1,10 @@
 "use strict";
 
-$(() => {
+$(() =>{
   let socket = io.connect();
   let $streamContainer = $(".streams");
   let $startStopStream = $(".start_stream");
   let $clearStream = $(".clear_stream");
-  let $filterInput = $(".search_input");
 
   let startStopStream = () => {
     let whilchButton = {
@@ -25,17 +24,16 @@ $(() => {
     $($streamContainer).empty();
   };
 
-  let filterFeed = () => {
+  $startStopStream.click(startStopStream);
+  $clearStream.click(clearStream);
+
+  $(".search_input").keyup(function () {
     let stream = $(".streams").find(".stream").hide();
     let data = this.value.split(" ");
     $.each(data, (i, v) => {
       stream.filter(":contains('" + v + "')").show();
     });
-  };
-
-  $startStopStream.click(startStopStream);
-  $clearStream.click(clearStream);
-  $filterInput.keyup(filterFeed);
+  });
 
   socket.on("new stream", data => {
     if (!data.friends) {
