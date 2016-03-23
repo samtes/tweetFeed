@@ -35,7 +35,7 @@ let runnungStream;
 
 io.sockets.on("connection", socket => {
   socket.on("start stream", data => {
-    client.stream("user", {track: data, language: "en"}, function(stream) {
+    client.stream("user", {track: data, language: "en"}, stream => {
       runnungStream = stream;
 
       stream.on("data", tweet => {
