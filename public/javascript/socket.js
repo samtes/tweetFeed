@@ -1,26 +1,26 @@
 "use strict";
 
-$(() =>{
-  let socket = io.connect();
-  let $streamContainer = $(".streams");
-  let $startStopStream = $(".start_stream");
-  let $clearStream = $(".clear_stream");
+$(function () {
+  var socket = io.connect();
+  var $streamContainer = $(".streams");
+  var $startStopStream = $(".start_stream");
+  var $clearStream = $(".clear_stream");
 
-  let startStopStream = () => {
-    let whilchButton = {
+  function startStopStream () {
+    var whilchButton = {
       "stop stream": "start stream",
       "start stream": "stop stream"
     };
 
-    let emitEvent = $startStopStream.val();
-    let action = whilchButton[$startStopStream.val()];
-    let $feed = $("select").val();
+    var emitEvent = $startStopStream.val();
+    var action = whilchButton[$startStopStream.val()];
+    var $feed = $("select").val();
 
     $startStopStream.val(action);
     socket.emit(emitEvent, $feed);
   };
 
-  let clearStream = () => {
+  function clearStream () {
     $($streamContainer).empty();
   };
 
@@ -28,21 +28,21 @@ $(() =>{
   $clearStream.click(clearStream);
 
   $(".search_input").keyup(function () {
-    let stream = $(".streams").find(".stream").hide();
-    let data = this.value.split(" ");
-    $.each(data, (i, v) => {
+    var stream = $(".streams").find(".stream").hide();
+    var data = this.value.split(" ");
+    $.each(data, function (i, v) {
       stream.filter(":contains('" + v + "')").show();
     });
   });
 
-  socket.on("new stream", data => {
+  socket.on("new stream", function (data) {
     if (!data.friends) {
-      let title = data.user || {name: ""};
-      let created_at = data.created_at;
-      let text = data.text;
-      let urls = data.entities.urls || [];
-      let media = data.entities.media || [];
-      let $div = $("<div>").addClass("stream");
+      var title = data.user || {name: ""};
+      var created_at = data.created_at;
+      var text = data.text;
+      var urls = data.entities.urls || [];
+      var media = data.entities.media || [];
+      var $div = $("<div>").addClass("stream");
 
       $div.append($("<img class='profile-image' src=" + data.user.profile_image_url + ">"));
       $div.append($("<h3>" + title.name + "</h3>").addClass("title"));
@@ -50,13 +50,13 @@ $(() =>{
       $div.append($("<div>" + text + "</div>"));
 
       if (urls.length) {
-        urls.forEach(url => {
+        urls.forEach(function (url) {
           $div.append($("<div>url: <a href='" + url.expanded_url + "'>" + url.expanded_url + "</a></div>"));
         });
       }
 
       if (media.length) {
-        media.forEach(m => {
+        media.forEach(function (m) {
           $div.append($("<div>media: <a href='" + m.expanded_url + "'>" + m.expanded_url + "</a></div>"));
         });
       }
