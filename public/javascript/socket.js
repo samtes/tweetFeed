@@ -42,26 +42,28 @@ $(function () {
       var text = data.text;
       var urls = data.entities.urls || [];
       var media = data.entities.media || [];
-      var $div = $("<div>").addClass("stream");
+      var $div = $("<div>").addClass("stream " + data.id);
 
-      $div.append($("<img class='profile-image' src=" + data.user.profile_image_url + ">"));
-      $div.append($("<h3>" + title.name + "</h3>").addClass("title"));
-      $div.append($("<div>" + created_at + "</div>"));
-      $div.append($("<div>" + text + "</div>"));
+      if (!$(".".concat(data.id)).length) {
+        $div.append($("<img class='profile-image' src=" + data.user.profile_image_url + ">"));
+        $div.append($("<h3>" + title.name + "</h3>").addClass("title"));
+        $div.append($("<div>" + created_at + "</div>"));
+        $div.append($("<div>" + text + "</div>"));
 
-      if (urls.length) {
-        urls.forEach(function (url) {
-          $div.append($("<div>url: <a href='" + url.expanded_url + "'>" + url.expanded_url + "</a></div>"));
-        });
+        if (urls.length) {
+          urls.forEach(function (url) {
+            $div.append($("<div>url: <a href='" + url.expanded_url + "'>" + url.expanded_url + "</a></div>"));
+          });
+        }
+
+        if (media.length) {
+          media.forEach(function (m) {
+            $div.append($("<div>media: <a href='" + m.expanded_url + "'>" + m.expanded_url + "</a></div>"));
+          });
+        }
+
+        $(".streams").prepend($div);
       }
-
-      if (media.length) {
-        media.forEach(function (m) {
-          $div.append($("<div>media: <a href='" + m.expanded_url + "'>" + m.expanded_url + "</a></div>"));
-        });
-      }
-
-      $(".streams").prepend($div);
     }
   });
 });
